@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fabriciorocha.workshop.entities.Post;
 import com.fabriciorocha.workshop.entities.User;
 import com.fabriciorocha.workshop.entities.dto.UserDTO;
 import com.fabriciorocha.workshop.services.UserService;
@@ -39,6 +40,12 @@ public class UserResource {
 	public ResponseEntity<UserDTO> findById(@PathVariable String id){
 		User user = service.findById(id);
 		return ResponseEntity.ok().body(new UserDTO(user));
+	}
+	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User user = service.findById(id);
+		return ResponseEntity.ok().body(user.getPosts());
 	}
 	
 	@PostMapping
